@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights - My Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="img/profile.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4a90e2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="My Hub">
+    <link rel="apple-touch-icon" href="img/icon-192.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <button id="hamburger" class="hamburger">☰</button>
+            <h1 class="logo"><a href="index.html">My Hub</a></h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="anime.html">Anime</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="bookmarks.html">Bookmarks</a></li>
+                <li><a href="vault.html">Vault</a></li>
+                <li><a href="insights.html" aria-current="page">Insights</a></li>
+                <li class="mobile-theme-toggle-item">
+                    <a href="#" id="mobile-theme-toggle-link" title="Toggle theme" role="button" aria-label="Toggle theme">
+                        Switch Theme <i class="fas fa-sun mobile-light-icon"></i>
+                        <i class="fas fa-moon mobile-dark-icon"></i>
+                        <i class="fas fa-leaf mobile-green-icon"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-icons">
+                <button id="theme-toggle" title="Toggle theme" aria-label="Toggle theme" type="button">
+                    <i class="fas fa-sun light-icon"></i>
+                    <i class="fas fa-moon dark-icon"></i>
+                    <i class="fas fa-leaf green-icon"></i>
+                </button>
+                <button id="account-icon" class="account-icon" title="Settings" aria-label="Open settings" type="button">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <h2>Insights</h2>
+            <p>Quick overview of your data across the hub.</p>
+        </section>
+
+        <section class="features">
+            <div class="card">
+                <h3>Anime</h3>
+                <ol id="insights-anime"></ol>
+            </div>
+            <div class="card">
+                <h3>Projects</h3>
+                <ol id="insights-projects"></ol>
+            </div>
+            <div class="card">
+                <h3>Bookmarks</h3>
+                <ol id="insights-bookmarks"></ol>
+            </div>
+            <div class="card">
+                <h3>Vault</h3>
+                <ol id="insights-vault"></ol>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 My Hub. Built by Zain.</p>
+    </footer>
+    <button id="scrollToTopBtn" title="Go to top">⬆️</button>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBe1p_NVOpSaM9mxmdiVnD5ghDWQzXN0qE",
+            authDomain: "my-hub-69-eh.firebaseapp.com",
+            projectId: "my-hub-69-eh",
+            storageBucket: "my-hub-69-eh.firebasestorage.app",
+            messagingSenderId: "862635340239",
+            appId: "1:862635340239:web:8a5da293c3e29498fe22ba"
+        };
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    </script>
+    <script src="navbar.js" defer></script>
+    <script src="script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const setList = (id, lines) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.innerHTML = '';
+                lines.forEach(t => { const li = document.createElement('li'); li.textContent = t; el.appendChild(li); });
+            };
+            const count = (arr) => Array.isArray(arr) ? arr.length : 0;
+            // local summaries
+            const w = JSON.parse(localStorage.getItem('watchingList') || '[]');
+            const c = JSON.parse(localStorage.getItem('completedList') || '[]');
+            const p = JSON.parse(localStorage.getItem('projectsList') || '[]');
+            const u = JSON.parse(localStorage.getItem('upcomingList') || '[]');
+            const bt = JSON.parse(localStorage.getItem('bookmarks_tools') || '[]');
+            const be = JSON.parse(localStorage.getItem('bookmarks_entertainment') || '[]');
+            const ac = JSON.parse(localStorage.getItem('accountsList') || '[]');
+            const no = JSON.parse(localStorage.getItem('notesList') || '[]');
+
+            setList('insights-anime', [
+                `Watching: ${count(w)}`,
+                `Completed: ${count(c)}`
+            ]);
+            setList('insights-projects', [
+                `Ongoing: ${count(p)}`,
+                `Plans: ${count(u)}`
+            ]);
+            setList('insights-bookmarks', [
+                `Tools: ${count(bt)}`,
+                `Entertainment: ${count(be)}`
+            ]);
+            setList('insights-vault', [
+                `Accounts: ${count(ac)}`,
+                `Notes: ${count(no)}`
+            ]);
+        });
+    </script>
+</body>
+
+</html>

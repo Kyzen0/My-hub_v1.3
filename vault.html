@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault - My Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="img/profile.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4a90e2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="My Hub">
+    <link rel="apple-touch-icon" href="img/icon-192.png">
+    <!-- Font Awesome for eye icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <!-- NEW POSITION: Hamburger button is now a direct child and comes first -->
+            <button id="hamburger" class="hamburger">☰</button>
+
+            <h1 class="logo"><a href="index.html">My Hub</a></h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="anime.html">Anime</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="bookmarks.html">Bookmarks</a></li>
+                <li><a href="vault.html">Vault</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li class="mobile-theme-toggle-item">
+                    <a href="#" id="mobile-theme-toggle-link" title="Toggle theme">
+                        Switch Theme <i class="fas fa-sun mobile-light-icon"></i>
+                        <i class="fas fa-moon mobile-dark-icon"></i>
+                        <i class="fas fa-leaf mobile-green-icon"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-icons">
+                <!-- Theme Toggle Button with three icons -->
+                <button id="theme-toggle" title="Toggle theme" aria-label="Toggle theme" type="button">
+                    <i class="fas fa-sun light-icon"></i> <!-- Sun icon for light mode -->
+                    <i class="fas fa-moon dark-icon"></i> <!-- Moon icon for dark mode -->
+                    <i class="fas fa-leaf green-icon"></i> <!-- Leaf icon for green mode -->
+                </button>
+                <!-- Settings icon for Profile -->
+                <button id="account-icon" class="account-icon" title="Settings" aria-label="Open settings" type="button">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Password Protection Modal -->
+    <div id="password-modal" class="modal-overlay">
+        <div class="modal-content password-prompt">
+            <span class="close-modal-btn" id="close-vault-password-modal">&times;</span>
+            <h3>Enter Vault Password</h3>
+            <p>Please enter your password to access your secure vault.</p>
+            <form id="vault-auth-form" autocomplete="off" data-lpignore="true" data-1p-ignore="true"
+                data-bwignore="true" onsubmit="return false;">
+                <div class="password-input-wrapper">
+                    <input type="password" id="vault-password-input" placeholder="Password" required
+                        name="vault-passcode" autocomplete="off" spellcheck="false" autocapitalize="off"
+                        autocorrect="off" data-lpignore="true" data-1p-ignore="true" data-bwignore="true">
+                    <span class="password-toggle" id="vault-password-toggle">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+                <button id="vault-unlock-btn" class="modal-btn btn-primary" type="button">Unlock Vault</button>
+            </form>
+            <p id="password-error" class="error-message"></p>
+            <!-- Forgot Password Section -->
+            <div id="forgot-password-section-vault" style="margin-top: 15px;">
+                <!-- Renamed ID to avoid conflict with index.html's forgot-password-link -->
+                <a href="#" id="forgot-vault-password-link" class="action-btn">Forgot Vault Password?</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Set New Password Modal (initially hidden) -->
+    <div id="set-new-password-modal" class="modal-overlay">
+        <div class="modal-content password-prompt">
+            <span class="close-modal-btn" id="close-set-new-password-modal">&times;</span>
+            <h3>Set New Vault Password</h3>
+            <p>You need to set a password to secure your vault. All previous vault data has been cleared (if any).</p>
+            <form id="vault-setpass-form" autocomplete="off" data-lpignore="true" data-1p-ignore="true"
+                data-bwignore="true" onsubmit="return false;">
+                <div class="password-input-wrapper">
+                    <input type="password" id="new-password-input" placeholder="Enter new password..." minlength="4"
+                        required name="vault-new-passcode" autocomplete="off" spellcheck="false" autocapitalize="off"
+                        autocorrect="off" data-lpignore="true" data-1p-ignore="true" data-bwignore="true">
+                    <span class="password-toggle" id="new-password-toggle-1">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+                <div class="password-input-wrapper">
+                    <input type="password" id="confirm-new-password-input" placeholder="Confirm new password..."
+                        minlength="4" required name="vault-confirm-passcode" autocomplete="off" spellcheck="false"
+                        autocapitalize="off" autocorrect="off" data-lpignore="true" data-1p-ignore="true"
+                        data-bwignore="true">
+                    <span class="password-toggle" id="new-password-toggle-2">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+            </form>
+            <p id="new-password-error-message" class="error-message"></p>
+            <button id="set-password-btn" class="modal-btn btn-primary">Set Password</button>
+            <button id="cancel-set-password-btn" class="modal-btn btn-secondary">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Main Vault Content (initially hidden by CSS) -->
+    <main class="container">
+        <section class="intro">
+            <h2>My Vault</h2>
+            <p>Your secure space for private accounts and notes.</p>
+        </section>
+
+        <div id="vault-content" style="display: none;">
+            <section class="features">
+                <div class="card">
+                    <h3>Accounts</h3>
+                    <ol id="accounts-list" class="accounts-list"></ol>
+                    <button class="view-more" onclick="toggleView('accounts')">View More</button>
+                    <div class="card-footer">
+                        <input type="text" id="accounts-input" placeholder="Add new account...">
+                        <div class="card-actions-bottom">
+                            <button onclick="addItem('accounts')" class="btn-primary">Add</button>
+                            <button onclick="clearList('accounts')" class="btn-secondary">Clear All</button>
+                        </div>
+                        <div class="last-updated"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Notes</h3>
+                    <ol id="notes-list" class="note-list"></ol>
+                    <button class="view-more" onclick="toggleView('notes')">View More</button>
+                    <div class="card-footer">
+                        <input type="text" id="notes-input" placeholder="Add new note...">
+                        <div class="card-actions-bottom">
+                            <button onclick="addItem('notes')" class="btn-primary">Add</button>
+                            <button onclick="clearList('notes')" class="btn-secondary">Clear All</button>
+                        </div>
+                        <div class="last-updated"></div>
+                    </div>
+                </div>
+            </section>
+        </div> <!-- END #vault-content -->
+
+    </main>
+    <div id="top-loader"><div class="bar"></div></div>
+    <!-- Global Custom Confirmation Modal (needed for custom alerts on this page) -->
+    <div id="customConfirmModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="confirmModalTitle"></h3>
+            <p id="confirmModalMessage"></p>
+            <div class="modal-buttons">
+                <button id="confirmModalOK" class="modal-btn btn-primary"></button>
+                <button id="confirmModalCancel" class="modal-btn btn-secondary"></button>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>&copy; 2025 My Hub. Built by Zain.</p>
+    </footer>
+    <button id="scrollToTopBtn" title="Go to top">⬆️</button>
+
+    <!-- Firebase SDKs and Configuration (compat to match other pages) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBe1p_NVOpSaM9mxmdiVnD5ghDWQzXN0qE",
+            authDomain: "my-hub-69-eh.firebaseapp.com",
+            projectId: "my-hub-69-eh",
+            storageBucket: "my-hub-69-eh.firebasestorage.app",
+            messagingSenderId: "862635340239",
+            appId: "1:862635340239:web:8a5da293c3e29498fe22ba"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    </script>
+    <script src="navbar.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="vault.js" defer></script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+
+</html>

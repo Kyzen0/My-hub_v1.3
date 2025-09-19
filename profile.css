@@ -1,0 +1,131 @@
+/* profile.css - Flat, clean profile page layout (scoped by .profile-page) */
+
+/* Reuse color variables from styles.css via :root and body.dark */
+
+.profile-page .container {
+    max-width: 900px;
+    padding: 2rem 1.25rem;
+    margin: 0 auto;
+}
+
+.profile-page .intro {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.profile-page .intro h2 {
+    margin: 0 0 0.5rem 0;
+    color: var(--accent);
+}
+
+.profile-page .section-block {
+    margin: 2rem 0;
+}
+
+.profile-page .section-title {
+    font-size: 1.25rem;
+    color: var(--accent);
+    margin: 0 0 0.75rem 0;
+}
+
+.profile-page .section-desc {
+    margin: 0 0 1rem 0;
+    color: var(--text-color-secondary);
+}
+
+.profile-page .field-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.profile-page label.inline {
+    color: var(--text-color-secondary);
+}
+
+.profile-page .inline-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+
+body.dark.profile-page .inline-input {
+    background-color: var(--dark-input-bg);
+    border-color: var(--dark-border-color);
+}
+
+.profile-page .inline-static {
+    display: block;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+
+body.dark.profile-page .inline-static {
+    background-color: var(--dark-input-bg);
+    border-color: var(--dark-border-color);
+}
+
+.profile-page .actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.profile-page .btn {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--hover-bg);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.profile-page .btn:hover {
+    background-color: #d4d4d4;
+}
+
+body.dark.profile-page .btn {
+    background-color: #0f172a;
+    border-color: var(--dark-border-color);
+}
+
+body.dark.profile-page .btn:hover {
+    background-color: #16223a;
+}
+
+.profile-page .btn-primary {
+    background-color: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+body.dark.profile-page .btn-primary {
+    color: var(--text-color);
+}
+
+.profile-page .btn-danger {
+    background-color: var(--error-color);
+    color: #fff;
+    border-color: var(--error-color);
+}
+
+/* Utilities */
+.profile-page .spacer-16 { margin-top: 16px; }
+.profile-page .spacer-24 { margin-top: 24px; }
+.profile-page .muted { color: var(--text-color-secondary); }
+
+/* Responsive */
+@media (max-width: 720px) {
+    .profile-page .container { padding: 1.25rem 1rem; }
+    .profile-page .field-row { grid-template-columns: 1fr; }
+}
+
+

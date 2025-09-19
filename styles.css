@@ -1,0 +1,1409 @@
+/* styles.css - Final Consolidated Version with Universal Button Classes and DESIRED NAVBAR */
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #222222;
+    --card-bg: #f4f4f4;
+    --accent: #4f46e5;
+    --accent-rgb: 79, 70, 229;
+    --border-color: #ccc;
+    --error-color: #dc3545;
+    --error-rgb: 220, 53, 69;
+    --hover-bg: #e0e0e0;
+    --input-bg: #ffffff;
+    --dark-border-color: #444;
+    --dark-input-bg: #111827;
+    --text-color-secondary: #666;
+}
+
+/* Green Theme */
+body.green {
+    --bg-color: #14532d;
+    --text-color: #fff;
+    --card-bg: #166534;
+    --accent: #22c55e;
+    --accent-rgb: 34, 197, 94;
+    --border-color: #16a34a;
+    --error-color: #ef4444;
+    --error-rgb: 239, 68, 68;
+    --hover-bg: #14532d;
+    --input-bg: #14532d;
+    --dark-border-color: #4ade80;
+    --dark-input-bg: #14532d;
+    --text-color-secondary: #bbf7d0;
+}
+
+body.green .card {
+    background: var(--card-bg);
+    color: var(--text-color);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+body.green .card:hover {
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+}
+
+body.green .navbar {
+    background: var(--card-bg);
+    color: var(--text-color);
+    box-shadow: 0 2px 10px rgba(34, 197, 94, 0.2);
+}
+
+body.green .modal-content {
+    background: var(--card-bg);
+    color: var(--text-color);
+    box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
+}
+
+body.green #scrollToTopBtn {
+    background-color: var(--accent);
+    color: var(--bg-color);
+}
+
+body.green #scrollToTopBtn:hover {
+    background-color: #65a30d;
+}
+
+body.green .btn,
+body.green .modal-btn,
+body.green .action-btn {
+    background: #166534;
+    color: #f0fdf4;
+    border: 1px solid #15803d;
+}
+
+body.green .btn:hover,
+body.green .modal-btn:hover,
+body.green .action-btn:hover {
+    background: #15803d;
+    color: #f0fdf4;
+}
+
+body.dark {
+    --bg-color: #111827;
+    --text-color: #f9fafb;
+    --card-bg: #1f2937;
+    --accent: #60a5fa;
+    --accent-rgb: 96, 165, 250;
+    --border-color: #444;
+    --error-color: #e66c78;
+    --error-rgb: 230, 108, 120;
+    --hover-bg: #2d3748;
+    --input-bg: #1f2937;
+    --dark-input-bg: #111827;
+    --text-color-secondary: #aaa;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
+}
+
+/* --- NAVBAR STYLES --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1001;
+}
+
+.logo {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin: 0;
+}
+
+.logo a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.logo a:hover {
+    color: var(--accent);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-links a:hover {
+    background-color: rgba(var(--accent-rgb), 0.1);
+    color: var(--accent);
+}
+
+.nav-links a.active-nav-link {
+    font-weight: bold;
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+    background-color: rgba(var(--accent-rgb), 0.05);
+}
+
+.nav-links a.active-nav-link:hover {
+    background-color: transparent;
+}
+
+/* Top progress bar */
+#top-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 2000;
+    pointer-events: none;
+}
+
+#top-loader .bar {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), rgba(var(--accent-rgb), 0.6));
+    transition: width 200ms ease;
+}
+
+#top-loader.active .bar {
+    width: 60%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #top-loader .bar {
+        transition: none;
+    }
+}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+#theme-toggle:hover {
+    background-color: rgba(var(--accent-rgb), 0.1);
+}
+
+#theme-toggle .light-icon,
+#theme-toggle .dark-icon,
+#theme-toggle .green-icon {
+    display: none;
+    line-height: 1;
+}
+
+body:not(.dark):not(.green) #theme-toggle .light-icon {
+    display: inline-block;
+}
+
+body.dark #theme-toggle .dark-icon {
+    display: inline-block;
+}
+
+body.green #theme-toggle .green-icon {
+    display: inline-block;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#hamburger {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    margin-right: 1rem;
+}
+
+.mobile-theme-toggle-item {
+    display: none;
+}
+
+/* Settings (account) icon: plain icon like theme toggle */
+.account-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+    font-size: 1.3rem; /* icon size similar to theme toggle */
+}
+
+.account-icon:hover {
+    background-color: rgba(var(--accent-rgb), 0.1);
+}
+
+/* --- END NAVBAR STYLES --- */
+
+
+.container {
+    padding: 2rem;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    height: 160px;
+    object-fit: cover;
+}
+
+.card a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    background-color: var(--card-bg);
+    margin-top: 3rem;
+}
+
+/* --- UNIVERSAL BUTTON STYLES --- */
+button {
+    padding: 10px 2px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    background: none;
+    border: none;
+    color: inherit;
+}
+
+.btn-primary {
+    background-color: var(--accent);
+    color: white;
+    border: 1px solid var(--accent);
+}
+
+.btn-primary:hover {
+    background-color: #3e38c7;
+    border-color: #3e38c7;
+}
+
+body.dark .btn-primary {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: var(--text-color);
+}
+
+body.dark .btn-primary:hover {
+    background-color: #4c8ae6;
+    border-color: #4c8ae6;
+}
+
+.btn-secondary {
+    background-color: var(--error-color);
+    color: white;
+    border: 1px solid var(--error-color);
+}
+
+.btn-secondary:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+body.dark .btn-secondary {
+    background-color: var(--error-color);
+    border-color: var(--error-color);
+    color: var(--text-color);
+}
+
+body.dark .btn-secondary:hover {
+    background-color: #e04b5c;
+    border-color: #e04b5c;
+}
+
+.card button {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.card-actions-bottom {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.card-actions-bottom button {
+    flex: 1;
+    max-width: 120px;
+    margin-top: 0;
+}
+
+.data-management-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.data-management-buttons button {
+    flex: 1;
+    max-width: 180px;
+    margin-bottom: 10px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* ADJUSTED: Specific styling for modal buttons */
+.modal-btn {
+    flex: 1; /* Allow them to grow */
+    max-width: 160px; /* Slightly increased max-width */
+    padding: 10px 15px; /* Reduced vertical padding slightly for a more compact feel */
+    font-size: 1rem; /* Adjusted font size */
+}
+
+/* Disabled state helper */
+.modal-btn.disabled,
+.modal-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* NEW: Specific styles for account settings modal buttons if needed, though .modal-btn handles most */
+.account-settings-buttons {
+    flex-direction: column; /* Stack buttons vertically for better spacing */
+    gap: 10px; /* Adjust gap for vertical stacking */
+}
+
+.account-settings-buttons .modal-btn {
+    width: 100%; /* Make them full width in stacked layout */
+    max-width: none; /* Remove max-width constraint for full width */
+}
+
+/* --- END UNIVERSAL BUTTON STYLES --- */
+
+
+/* --- LIST & INPUT STYLES --- */
+.card h2,
+.card h3 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.card ol {
+    list-style: decimal;
+    list-style-position: inside;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    padding-left: 20px;
+}
+
+.card ol li {
+    list-style-type: decimal;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    word-break: break-word;
+    transition: background-color 0.2s ease;
+    cursor: grab;
+    margin-left: -20px;
+}
+
+.card ol li:hover:not(.dragging):not(.editing-item):not(.empty-message) {
+    background-color: var(--hover-bg);
+    cursor: grab;
+}
+
+.card ol li:last-child {
+    border-bottom: none;
+}
+
+.card ol li .item-text {
+    flex-grow: 1;
+    word-break: break-all;
+    transition: text-decoration 0.2s ease, opacity 0.2s ease;
+}
+
+.item-checkbox {
+    margin-right: 0;
+    min-width: 18px;
+    min-height: 18px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    transform: scale(1.1);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.item-checkbox:checked {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.item-checkbox:checked::before {
+    content: '✔';
+    font-size: 14px;
+    color: var(--card-bg);
+    display: block;
+    line-height: 1;
+}
+
+body.dark .item-checkbox {
+    border-color: var(--dark-border-color);
+    background-color: var(--dark-input-bg);
+}
+
+body.dark .item-checkbox:checked {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.item-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.action-btn {
+    cursor: pointer;
+    color: var(--accent);
+    font-size: 0.9em;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.action-btn:hover {
+    color: #3e38c7;
+    text-decoration: underline;
+}
+
+body.dark .action-btn:hover {
+    color: #a5d0ff;
+}
+
+
+/* --- STYLES FOR EDITING STATE --- */
+.card ol li.editing-item {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    cursor: default;
+    background-color: transparent;
+}
+
+.card ol li.editing-item input.edit-input {
+    width: 100%;
+    margin: 0 0 10px 0;
+}
+
+.card ol li.editing-item .item-actions {
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.card ol li.editing-item .item-actions button {
+    width: 100%;
+    max-width: 100px;
+    padding: 8px 10px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/* General text input styling */
+.card input[type="text"] {
+    width: calc(100% - 20px);
+    margin: 6px auto;
+    padding: 8px 10px;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+    align-self: center;
+    transition: border-color 0.3s ease;
+}
+
+/* Input Error Styling */
+.input-error {
+    border-color: var(--error-color) !important;
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.card button.view-more {
+    background: none;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 5px 10px;
+    margin: 10px auto;
+    display: none;
+    width: auto;
+    max-width: 150px;
+}
+
+.card button.view-more:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+.card-footer {
+    margin-top: auto;
+    padding-top: 10px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.card-footer input[type="text"] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+
+/* --- Scroll to Top Button --- */
+#scrollToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+#scrollToTopBtn.show {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#scrollToTopBtn:hover {
+    background-color: #3e38c7;
+    transform: translateY(-2px);
+}
+
+body.dark #scrollToTopBtn {
+    background-color: #4c8ae6;
+}
+
+body.dark #scrollToTopBtn:hover {
+    background-color: #3b7ad9;
+}
+/* --- END Scroll to Top Button --- */
+
+/* Styling for the Last Updated Timestamp */
+.card-footer .last-updated {
+    font-size: 0.75em;
+    color: var(--text-color);
+    opacity: 0.6;
+    text-align: right;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+body.dark .card-footer .last-updated {
+    color: var(--text-color);
+    opacity: 0.5;
+}
+
+/* Styling for Data Management Section */
+.data-management-section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-top: 3rem;
+    text-align: center;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* --- MODAL STYLES --- */
+.modal-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+/* Vault specific styles for the password modals */
+.password-prompt h3 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: var(--accent);
+}
+
+.password-prompt p {
+    margin-bottom: 20px;
+}
+
+/* Vault password inputs styled like auth inputs */
+.password-prompt input[type="email"],
+.password-prompt input[type="password"],
+.password-prompt input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1.1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+body.dark .password-prompt input {
+    background-color: var(--dark-input-bg);
+    border-color: var(--dark-border-color);
+}
+
+.password-prompt input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.2);
+}
+
+/* Vault error messages styled like auth */
+.password-prompt .error-message {
+    color: var(--error-color);
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    min-height: 1.2em;
+    display: block;
+}
+
+.password-input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    /* Keep this for eye icon alignment, but inputs inside will have full width */
+    max-width: calc(100% - 40px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Consolidated input styling for all auth/account modals */
+.auth-prompt input[type="email"],
+.auth-prompt input[type="password"],
+.auth-prompt input[type="text"] { /* ADDED type="text" here */
+    width: 100%; /* Ensure full width within its container */
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    color: var(--text-color); /* Set text color to theme variable */
+    font-size: 1.1rem; /* Consistent font size */
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+body.dark .auth-prompt input {
+    background-color: var(--dark-input-bg);
+    border-color: var(--dark-border-color);
+}
+
+.auth-prompt input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.2);
+}
+
+/* Styling for non-editable email display in Account Settings modal */
+.modal-static-text {
+    text-align: left;
+    padding: 12px 15px;
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-color); /* Ensure text is visible */
+    font-size: 1.1rem;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    display: block; /* Occupy full width */
+}
+
+body.dark .modal-static-text {
+    background-color: var(--dark-input-bg);
+    border-color: var(--dark-border-color);
+}
+
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-color-secondary);
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: var(--accent);
+}
+
+
+/* Specific styling for the "Forgot Password?" link */
+#forgot-password-section,
+#forgot-password-section-vault {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#forgot-password-link,
+#forgot-vault-password-link {
+    display: inline-block;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+#forgot-password-link:hover,
+#forgot-vault-password-link:hover {
+    background-color: rgba(var(--accent-rgb), 0.1);
+    text-decoration: underline;
+}
+
+/* Styling for empty list messages */
+.empty-message {
+    font-style: italic;
+    color: var(--text-color-secondary);
+    text-align: center;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: transparent;
+    border: none;
+    list-style: none;
+    font-size: 0.95em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+}
+
+.card ol .empty-message {
+    margin-left: 0;
+    padding: 15px;
+    border-bottom: none;
+}
+
+
+/* Ensure password and set new password modals are initially hidden by JS */
+#password-modal,
+#set-new-password-modal {
+    display: flex;
+}
+
+
+/* Ensure vault content is hidden until unlocked by JS */
+#vault-content {
+    display: none;
+}
+
+
+/* --- Responsive Adjustments for smaller screens (Hamburger menu + nav links) --- */
+@media (max-width: 768px) {
+    /* Force mobile styles with higher specificity */
+    body .navbar .nav-links {
+        display: flex !important; /* Keep in DOM for smooth transitions */
+    }
+    
+    body .navbar .nav-links.show {
+        display: flex !important;
+    }
+    
+    body .navbar #hamburger {
+        display: block !important;
+        position: relative;
+        z-index: 1002;
+    }
+    
+    body .navbar #theme-toggle {
+        display: none !important;
+    }
+    
+    body .navbar .mobile-theme-toggle-item {
+        display: block !important;
+    }
+    
+    /* Additional mobile-specific overrides */
+    body .navbar .nav-icons {
+        gap: 0 !important;
+    }
+    
+    /* Ensure mobile theme toggle icons are properly displayed */
+    body .navbar .mobile-theme-toggle-item .mobile-light-icon,
+    body .navbar .mobile-theme-toggle-item .mobile-dark-icon {
+        font-size: 1.1rem !important;
+    }
+    .nav-links {
+        display: flex !important; /* present in DOM for animation */
+        flex-direction: column;
+        background: var(--bg-color);
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        max-width: 250px;
+        padding: 0; /* padding expands during show for smoother edge */
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        z-index: 1001;
+        border-radius: 0 0 8px 8px;
+        border: 1px solid var(--border-color);
+        border-top: none;
+        overflow: hidden;
+        /* animation state (hidden) */
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-8px);
+        pointer-events: none;
+        transition: max-height 220ms ease, opacity 180ms ease, transform 180ms ease, padding 180ms ease;
+    }
+
+    .nav-links.show {
+        /* animation state (visible) */
+        max-height: 420px; /* large enough for all links */
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        padding: 10px 0;
+    }
+    
+    #hamburger {
+        display: block !important;
+        margin-right: 0;
+        font-size: 1.4rem;
+        cursor: pointer;
+        z-index: 1002;
+    }
+
+    #theme-toggle {
+        display: none !important; /* Hide desktop theme toggle button on mobile */
+    }
+
+    /* Ensure nav-icons container doesn't take up space when theme toggle is hidden */
+    .nav-icons {
+        gap: 0;
+    }
+
+    .mobile-theme-toggle-item {
+        display: block !important; /* Show mobile theme toggle link */
+    }
+
+    /* Mobile theme toggle icon styling */
+    .mobile-theme-toggle-item a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 20px;
+        color: var(--text-color);
+        text-decoration: none;
+        transition: background-color 0.2s, color 0.2s;
+    }
+
+    .mobile-theme-toggle-item a:hover {
+        background-color: rgba(var(--accent-rgb), 0.1);
+        color: var(--accent);
+    }
+
+    .mobile-theme-toggle-item .mobile-light-icon,
+    .mobile-theme-toggle-item .mobile-dark-icon {
+        font-size: 1.1rem;
+    }
+
+    /* Show/hide mobile theme icons based on current theme */
+    body:not(.dark):not(.green) .mobile-theme-toggle-item .mobile-light-icon {
+        display: inline-block !important;
+    }
+
+    body:not(.dark):not(.green) .mobile-theme-toggle-item .mobile-dark-icon,
+    body:not(.dark):not(.green) .mobile-theme-toggle-item .mobile-green-icon {
+        display: none !important;
+    }
+
+    body.dark .mobile-theme-toggle-item .mobile-light-icon,
+    body.dark .mobile-theme-toggle-item .mobile-green-icon {
+        display: none !important;
+    }
+
+    body.dark .mobile-theme-toggle-item .mobile-dark-icon {
+        display: inline-block !important;
+    }
+
+    body.green .mobile-theme-toggle-item .mobile-light-icon,
+    body.green .mobile-theme-toggle-item .mobile-dark-icon {
+        display: none !important;
+    }
+
+    body.green .mobile-theme-toggle-item .mobile-green-icon {
+        display: inline-block !important;
+    }
+
+    .nav-links li {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links a {
+        padding: 12px 20px;
+        display: block;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 0;
+    }
+
+    .nav-links li:last-child a {
+        border-bottom: none;
+    }
+
+    .nav-links a.active-nav-link {
+        font-weight: bold;
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-decoration-thickness: 2px;
+        background-color: rgba(var(--accent-rgb), 0.05);
+    }
+
+    /* General card and modal adjustments for smaller screens */
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        max-width: 100%;
+    }
+
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+        max-width: none;
+    }
+
+    /* Adjust modal buttons for small screens, especially stacked ones */
+    .modal-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .modal-buttons {
+        flex-direction: column; /* Ensure modals buttons stack on small screens */
+        gap: 10px;
+    }
+
+    .modal-btn {
+        max-width: 100%; /* Allow buttons to take full width when stacked */
+    }
+
+    .data-management-buttons {
+        flex-direction: column;
+    }
+    .auth-status-btn {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Medium screens: 2 on top, 1 below full width */
+@media (min-width: 769px) and (max-width: 1000px) {
+    .features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+        max-width: none;
+    }
+}
+
+
+/* Auth Status Button in Navbar */
+.auth-status-btn {
+    background-color: var(--accent);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-left: 1rem;
+    transition: background-color 0.2s, color 0.2s, transform 0.1s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+    text-align: center;
+    display: inline-block;
+}
+
+.auth-status-btn:hover {
+    background-color: #3e38c7;
+    transform: translateY(-1px);
+}
+
+body.dark .auth-status-btn {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: var(--text-color);
+}
+
+body.dark .auth-status-btn:hover {
+    background-color: #4c8ae6;
+}
+
+/* Authentication Modal Specific Styles (similar to vault password modal) */
+.auth-prompt {
+    max-width: 450px;
+    padding: 30px;
+}
+
+.auth-prompt h3 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-bottom: 25px;
+}
+
+.auth-prompt .input-group {
+    margin-bottom: 20px;
+}
+
+/* Existing .auth-prompt input styles now consolidated and improved */
+/* Moved type-specific declarations to a single place */
+/* .auth-prompt input[type="email"],
+.auth-prompt input[type="password"] { ... } */
+/* This rule is replaced by the broader one above for consistency */
+
+
+.auth-prompt .password-input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.auth-prompt .error-message {
+    color: var(--error-color);
+    font-size: 0.9em;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    text-align: center;
+    min-height: 1.2em;
+    display: block;
+}
+
+/* Adjusted default modal-btn inside auth-prompt to use flex:1 instead of width:100% */
+.auth-prompt .modal-btn {
+    /* Removed width: 100% as it conflicts with flex layout when in modal-buttons */
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    margin-top: 15px;
+}
+
+/* New: Polished login/signup layout */
+.auth-header { text-align: left; margin-bottom: 10px; }
+.auth-header h3 { margin: 0; font-size: 1.7rem; color: var(--accent); }
+.auth-subtitle { margin: 6px 0 0 0; color: var(--text-color-secondary); font-size: 0.95rem; }
+.auth-fields { margin-top: 12px; }
+.auth-actions { display: flex; gap: 10px; margin-top: 10px; }
+.auth-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+
+/* Auth tabs */
+.auth-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+.auth-tab { padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); cursor: pointer; }
+.auth-tab.active { background: rgba(var(--accent-rgb), 0.1); border-color: var(--accent); color: var(--accent); }
+body.dark .auth-tab { background: var(--dark-input-bg); border-color: var(--dark-border-color); }
+
+
+.auth-switch {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: var(--text-color-secondary);
+    text-align: center;
+}
+
+.auth-switch a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+    transition: text-decoration 0.2s;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+/* Close button for modals */
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-color-secondary);
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.close-modal-btn:hover {
+    color: var(--accent);
+}
+
+/* Responsive adjustments for the auth modal */
+@media (max-width: 480px) {
+    .auth-prompt {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .auth-prompt h3 {
+        font-size: 1.6rem;
+    }
+
+    .auth-prompt input {
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
+
+    .auth-prompt .modal-btn {
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
+    .auth-status-btn {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+}
+/* Add this to styles.css for the loading indicator */
+.pending-update {
+    opacity: 0.6;
+    font-style: italic;
+    color: var(--text-color-secondary);
+    /* You can add a subtle animation or spinner if you want */
+}
+
+#toast-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+    pointer-events: none;
+}
+
+.toast {
+    min-width: 220px;
+    max-width: 320px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    margin: 0;
+    opacity: 1;
+    transition: opacity 0.5s, transform 0.5s;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+}
+
+.toast.toast-fadeout {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+}
+
+.toast-success {
+    border-left: 4px solid #22c55e;
+}
+.toast-error {
+    border-left: 4px solid #ef4444;
+}
+.toast-info {
+    border-left: 4px solid #3b82f6;
+}
+.toast-warning {
+    border-left: 4px solid #fbbf24;
+}
+
+@media (max-width: 600px) {
+    #toast-container {
+        right: 0.5rem;
+        bottom: 0.5rem;
+    }
+    .toast {
+        min-width: 160px;
+        max-width: 90vw;
+        font-size: 0.95rem;
+        padding: 0.6rem 1rem;
+    }
+}
+

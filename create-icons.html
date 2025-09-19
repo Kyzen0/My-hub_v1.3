@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Icon Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .icon-preview {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        canvas {
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>My Hub App Icons</h1>
+    <p>This generates the app icons needed for PWA installation.</p>
+
+    <div class="icon-preview">
+        <h3>192x192 Icon</h3>
+        <canvas id="icon192" width="192" height="192"></canvas>
+        <br><button onclick="downloadIcon(192)">Download 192x192</button>
+    </div>
+
+    <div class="icon-preview">
+        <h3>512x512 Icon</h3>
+        <canvas id="icon512" width="512" height="512"></canvas>
+        <br><button onclick="downloadIcon(512)">Download 512x512</button>
+    </div>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#4a90e2');
+            gradient.addColorStop(1, '#357abd');
+
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+
+            // Draw a simple hub icon (gear + center dot)
+            ctx.fillStyle = 'white';
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = size * 0.08;
+
+            // Center circle
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const centerRadius = size * 0.15;
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, centerRadius, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // Gear teeth
+            const gearRadius = size * 0.35;
+            const toothCount = 8;
+            const toothLength = size * 0.12;
+            const toothWidth = size * 0.08;
+
+            for (let i = 0; i < toothCount; i++) {
+                const angle = (i * 2 * Math.PI) / toothCount;
+                const x1 = centerX + Math.cos(angle) * gearRadius;
+                const y1 = centerY + Math.sin(angle) * gearRadius;
+                const x2 = centerX + Math.cos(angle) * (gearRadius + toothLength);
+                const y2 = centerY + Math.sin(angle) * (gearRadius + toothLength);
+
+                ctx.lineWidth = toothWidth;
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+
+            // Inner gear circle
+            ctx.lineWidth = size * 0.05;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, gearRadius, 0, 2 * Math.PI);
+            ctx.stroke();
+        }
+
+        function downloadIcon(size) {
+            const canvas = document.getElementById(`icon${size}`);
+            const link = document.createElement('a');
+            link.download = `icon-${size}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Draw icons when page loads
+        window.onload = function () {
+            drawIcon(document.getElementById('icon192'), 192);
+            drawIcon(document.getElementById('icon512'), 512);
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Hub - Home</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="img/profile.png" />
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4a90e2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="My Hub">
+    <link rel="apple-touch-icon" href="img/icon-192.png">
+    <!-- Font Awesome for eye icon in password fields AND theme icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <!-- NEW POSITION: Hamburger button is now a direct child and comes first -->
+            <button id="hamburger" class="hamburger">☰</button>
+
+            <h1 class="logo"><a href="index.html">My Hub</a></h1>
+            <ul class="nav-links">
+                <li><a href="index.html" aria-current="page">Home</a></li>
+                <li><a href="anime.html">Anime</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="bookmarks.html">Bookmarks</a></li>
+                <li><a href="vault.html">Vault</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <!-- <li><a href="vault.html">Vault</a></li> -->
+                <!-- Mobile Theme Toggle Link -->
+                <li class="mobile-theme-toggle-item">
+                    <a href="#" id="mobile-theme-toggle-link" title="Toggle theme" role="button" aria-label="Toggle theme">
+                        Switch Theme <i class="fas fa-sun mobile-light-icon"></i>
+                        <i class="fas fa-moon mobile-dark-icon"></i>
+                        <i class="fas fa-leaf mobile-green-icon"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-icons">
+                <!-- Theme Toggle Button with three icons -->
+                <button id="theme-toggle" title="Toggle theme" aria-label="Toggle theme" type="button">
+                    <i class="fas fa-sun light-icon"></i> <!-- Sun icon for light mode -->
+                    <i class="fas fa-moon dark-icon"></i> <!-- Moon icon for dark mode -->
+                    <i class="fas fa-leaf green-icon"></i> <!-- Leaf icon for green mode -->
+                </button>
+                <!-- Settings icon navigates to Profile page; when logged out opens auth modal -->
+                <button id="account-icon" class="account-icon" title="Settings" aria-label="Open settings" type="button">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </nav>
+
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <h2>Welcome to My Hub</h2>
+            <p>This is your personal space to track anime, bookmarks, and projects — all in one place.</p>
+            <p style="text-align: center; margin-top: 10px; color: var(--text-color-secondary);">Manage your profile,
+                security, and backups on the <a href="profile.html" class="action-btn">Profile</a> page.</p>
+            <p id="welcome-message"
+                style="text-align: center; margin-top: 15px; font-weight: bold; color: var(--accent);"></p>
+        </section>
+
+        <section class="features">
+            <div class="card">
+                <img src="img/anime-bg.avif" alt="Anime" loading="lazy" width="600" height="400" />
+                <h3><a href="anime.html">Anime Tracker</a></h3>
+                <p>Track what you’re watching, what you’ve completed, and what’s next.</p>
+            </div>
+            <div class="card">
+                <img src="img/projects-bg.avif" alt="Projects" loading="lazy" width="600" height="400" />
+                <h3><a href="projects.html">Projects Vault</a></h3>
+                <p>List your ideas and ongoing or completed projects here.</p>
+            </div>
+            <div class="card">
+                <img src="img/profile.png" alt="Bookmarks" loading="lazy" width="512" height="512" />
+                <h3><a href="bookmarks.html">Bookmark Manager</a></h3>
+                <p>Save your daily tools, sites, and important links in one place.</p>
+            </div>
+        </section>
+
+        <!-- Home highlights (replaces data management card) -->
+        <section class="container" style="max-width: 800px; margin-top: 2rem;">
+            <h2 style="text-align:center; margin-bottom: 0.75rem;">Stay Organized Effortlessly</h2>
+            <p style="text-align:center; color: var(--text-color-secondary); margin-top:0;">Quickly capture what you're
+                watching, building, and saving. Your data stays in sync when signed in and verified.</p>
+            <div style="margin-top: 1rem;">
+                <ul style="line-height: 1.8; max-width: 720px; margin: 0 auto;">
+                    <li><strong>Anime tracker</strong>: Toggle between watching and completed with one click.</li>
+                    <li><strong>Projects vault</strong>: Log ideas and upcoming tasks as they evolve.</li>
+                    <li><strong>Bookmarks</strong>: Keep daily tools and entertainment links handy.</li>
+                </ul>
+            </div>
+            <div style="text-align:center; margin-top: 1rem; color: var(--text-color-secondary);">
+                Tip: Visit <a href="profile.html" class="action-btn">Profile</a> to export/import or clear your data.
+            </div>
+        </section>
+    </main>
+    <div id="top-loader"><div class="bar"></div></div>
+    <div id="customConfirmModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="confirmModalTitle"></h3>
+            <p id="confirmModalMessage"></p>
+            <div class="modal-buttons">
+                <button id="confirmModalOK" class="modal-btn btn-primary"></button>
+                <button id="confirmModalCancel" class="modal-btn btn-secondary"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Existing: Authentication Modal -->
+    <div id="auth-modal" class="modal-overlay">
+        <div class="modal-content auth-prompt">
+            <span class="close-modal-btn">&times;</span> <!-- Close button -->
+
+            <!-- Auth Tabs -->
+            <div class="auth-tabs">
+                <button id="auth-tab-login" class="auth-tab active" type="button">Log In</button>
+                <button id="auth-tab-signup" class="auth-tab" type="button">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form">
+                <div class="auth-header">
+                    <h3>Welcome back</h3>
+                    <p class="auth-subtitle">Log in to continue to your hub.</p>
+                </div>
+                <div class="auth-fields">
+                    <div class="input-group">
+                        <input type="email" id="login-email" placeholder="Email" required>
+                    </div>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="login-password" placeholder="Password" required>
+                        <span class="password-toggle" id="login-password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                <p id="login-error-message" class="error-message"></p>
+                <div class="auth-actions">
+                    <button id="login-btn" class="btn-primary modal-btn">Log In</button>
+                </div>
+                <div class="auth-footer">
+                    <div class="auth-switch">Don't have an account? <a href="#" id="show-signup">Sign Up</a></div>
+                    <div id="forgot-password-section">
+                        <a href="#" id="forgot-password-link" class="action-btn">Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sign Up Form (hidden by default) -->
+            <div id="signup-form" style="display: none;">
+                <div class="auth-header">
+                    <h3>Create your account</h3>
+                    <p class="auth-subtitle">Join My Hub and start organizing.</p>
+                </div>
+                <div class="auth-fields">
+                    <!-- NEW: Name input field -->
+                    <div class="input-group">
+                        <input type="text" id="signup-name" placeholder="Your Name (Optional)">
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="signup-email" placeholder="Email" required>
+                    </div>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="signup-password" placeholder="Password" required>
+                        <span class="password-toggle" id="signup-password-toggle-1">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required>
+                        <span class="password-toggle" id="signup-password-toggle-2">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                <p id="signup-error-message" class="error-message"></p>
+                <div class="auth-actions">
+                    <button id="signup-btn" class="btn-primary modal-btn">Sign Up</button>
+                </div>
+                <div class="auth-footer">
+                    <div class="auth-switch">Already have an account? <a href="#" id="show-login">Log In</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Authentication Modal -->
+
+    <!-- NEW: Password Reset Modal -->
+    <div id="password-reset-modal" class="modal-overlay">
+        <div class="modal-content auth-prompt"> <!-- Reuse auth-prompt class for styling consistency -->
+            <span class="close-modal-btn" id="close-reset-modal-btn">&times;</span>
+            <h3>Reset Password</h3>
+            <p>Please enter your email address to receive a password reset link.</p>
+            <div class="input-group">
+                <input type="email" id="reset-email-input" placeholder="Your Email" required>
+            </div>
+            <p id="reset-error-message" class="error-message"></p>
+            <button id="send-reset-email-btn" class="modal-btn btn-primary">Send Reset Link</button>
+        </div>
+    </div>
+    <!-- End Password Reset Modal -->
+
+    <!-- NEW: Account Settings Modal -->
+    <div id="account-settings-modal" class="modal-overlay">
+        <div class="modal-content auth-prompt">
+            <span class="close-modal-btn" id="close-account-settings-modal-btn">&times;</span>
+            <h3>Account Settings</h3>
+            <div class="input-group">
+                <label for="account-display-name">Name:</label>
+                <input type="text" id="account-display-name" placeholder="Your Name">
+            </div>
+            <div class="input-group">
+                <label for="account-email-display">Email:</label>
+                <p id="account-email-display" class="modal-static-text"></p> <!-- Display email, not editable -->
+            </div>
+            <p id="account-settings-error-message" class="error-message"></p>
+            <div class="modal-buttons account-settings-buttons">
+                <button id="update-profile-btn" class="modal-btn btn-primary">Update Profile</button>
+                <button id="change-password-btn" class="modal-btn btn-secondary">Change Password</button>
+                <button id="logout-btn" class="modal-btn btn-secondary">Logout</button>
+                <!-- Add a delete account button here later if desired, with strong confirmation -->
+            </div>
+        </div>
+    </div>
+    <!-- End Account Settings Modal -->
+
+    <footer>
+        <p>&copy; 2025 Zain's Hub. All rights reserved.</p>
+    </footer>
+    <button id="scrollToTopBtn" title="Go to top">⬆️</button>
+
+    <!-- Firebase SDKs and Configuration -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBe1p_NVOpSaM9mxmdiVnD5ghDWQzXN0qE",
+            authDomain: "my-hub-69-eh.firebaseapp.com",
+            projectId: "my-hub-69-eh",
+            storageBucket: "my-hub-69-eh.firebasestorage.app",
+            messagingSenderId: "862635340239",
+            appId: "1:862635340239:web:8a5da293c3e29498fe22ba"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    </script>
+    <script src="navbar.js" defer></script>
+    <script src="script.js" defer></script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+    <div id="toast-container"></div>
+</body>
+
+</html>
